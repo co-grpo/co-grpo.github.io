@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Co-GRPO: Co-Optimized Group Relative Policy Optimization for Masked Diffusion Model">
+  <meta name="keywords" content="Co-GRPO, Group Relative Policy Optimization, Masked Diffusion Model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Co-GRPO: Co-Optimized Group Relative Policy Optimization for Masked Diffusion Model</title>
+
+  <!-- <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet"> -->
+  <link href="https://fonts.lug.ustc.edu.cn/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <!-- TODO: Logo -->
+  <!-- <link rel="icon" href="./static/images/logo.svg"> -->
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <script src="https://ajax.lug.ustc.edu.cn/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$', right: '$', display: false},
+        {left: '$$', right: '$$', display: true}
+      ]
+    });">
+  </script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://github.com/zrporz">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <!-- <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="">
+            xxx
+          </a>
+          <a class="navbar-item" href="">
+            xxx
+          </a>
+        </div>
+      </div> -->
+    </div>
+
+  </div>
+</nav>
+
+<!-- Title -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Co-GRPO: Co-Optimized Group Relative Policy Optimization for Masked Diffusion Model</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <!-- <a href="https://github.com/zrporz">Renping Zhou</a><sup title="Equal contribution">*</sup>, -->
+              Renping Zhou*,
+            </span>
+            <span class="author-block">
+              Zanlin Ni*,
+            </span>
+            <span class="author-block">
+              Tianyi Chen,
+            </span>
+            <span class="author-block">
+              Zeyu Liu,
+            </span>
+            <span class="author-block">
+              Yang Yue,
+            </span>
+            <span class="author-block">
+              Yulin Wang,
+            </span>
+            <span class="author-block">
+              Yuxuan Wang,
+            </span>
+            <span class="author-block">
+              Jingshu Liu,
+            </span>
+            <span class="author-block">
+              <!-- <a href="https://www.gaohuang.net/">Gao Huang</a><sup><i class="fas fa-envelope" title="Corresponding author"></i></sup> -->
+              Gao Huang<sup><i class="fas fa-envelope"></i></sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">(* indicates equal contribution, <i class="fas fa-envelope" style="vertical-align: middle;"></i> means corresponding author)</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Leap Lab, Tsinghua University</span>
+          </div>
+
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block"><font color="red"><b>Accepted to CVPR 2026</b></font></span>
+          </div> -->
+          
+          <div class="column has-text-centered">
+            <div class="publication-links">
+
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/abs/2503.10437"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>ArXiv</span>
+                </a>
+              </span> -->
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/LeapLabTHU/Co-GRPO.git"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="https://drive.google.com/drive/folders/1C-ciHn38vVd47TMkx2-93EUpI0z4ZdZW?usp=sharing"
+                  class="external-link button is-normal is-rounded is-dark">
+                 <span class="icon">
+                     <i class="fas fa-database"></i>
+                 </span>
+                 <span>Data</span>
+                 </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://huggingface.co/rpzhou/Co-GRPO-Meissonic-1B"
+                  class="external-link button is-normal is-rounded is-dark">
+                 <span class="icon">
+                     <i class="fas fa-smile"></i>
+                 </span>
+                 <span>Hugging Face</span>
+                 </a>
+              </span>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <div class="hero-body">
+          <img src="./static/images/teaser-comb.svg" alt="Co-GRPO Teaser" style="width: 100%;"/>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+         <div class="content has-text-justified">
+          <p>
+            <b>TLDR:</b> We bridge the gap between single-step training and multi-step inference in Masked Diffusion Models by introducing <b>Co-GRPO</b>, a framework that cooperatively optimizes both the generative model and the inference schedule using reinforcement learning, achieving superior visual quality and alignment without costly multi-step backpropagation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recently, Masked Diffusion Models (MDMs) have shown promising potential across vision, language, and cross-modal generation. However, a notable discrepancy exists between their training and inference procedures. In particular, MDM inference is a multi-step, iterative process governed not only by the model itself but also by various schedules that dictate the token-decoding trajectory (e.g., how many tokens to decode at each step). In contrast, MDMs are typically trained using a simplified, single-step BERT-style objective. This simplification fundamentally disconnects the training paradigm from the trajectory-level nature of inference, leaving the inference schedules never optimized during training.
+          </p>
+          <p>
+            In this paper, we introduce <b>Co-GRPO</b>, which reformulates MDM generation as a unified Markov Decision Process (MDP) that jointly incorporates both the model and the inference schedule. By applying Group Relative Policy Optimization at the trajectory level, Co-GRPO cooperatively optimizes model parameters and schedule parameters under a shared reward, without requiring costly backpropagation through the multi-step generation process. This holistic optimization aligns training with inference more thoroughly and substantially improves generation quality. Empirical results across four benchmarks—ImageReward, HPS, GenEval, and DPG-Bench—demonstrate the effectiveness of our approach.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Methodology</h2>
+        
+        <div class="hero-body">
+          <img src="./static/images/model.svg" alt="Co-GRPO Framework Overview" style="width: 100%;"/>
+        </div>
+
+         <div class="content has-text-justified">
+          <p>
+            Co-GRPO reformulates the generation process as a joint Markov Decision Process where the agent acts on both visual tokens $V$ and inference schedule parameters $A$ (e.g., sampling temperature $\tau_s$, re-mask ratio $r$). To effectively explore this expanded space, we introduce a <b>Factorized Policy</b> that explicitly decouples the Model Policy $\pi_\theta$ from the Scheduling Policy $\pi_\phi$.
+          </p>
+          <p>
+            Based on this factorization, we propose an <b>Alternating Co-Optimization</b> strategy. Instead of unstable joint updates, we iteratively optimize $\theta$ and $\phi$ to maximize the Group Relative Advantage. This mechanism allows the framework to autonomously discover optimal decoding trajectories aligned with human preferences, effectively "self-driving" the inference process.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results</h2>
+        
+        <h3 class="title is-4 has-text-left">Quantitative Results</h3>
+
+        <div class="hero-body">
+          <img src="./static/images/results_chart.png" alt="Quantitative Results" style="width: 100%;"/>
+        </div>
+
+        <div class="content has-text-justified">
+          <p>
+            Co-GRPO consistently outperforms state-of-the-art baselines across all metrics, achieving superior performance in both reward alignment and zero-shot generalization tasks.
+          </p>
+        </div>
+
+        <h3 class="title is-4 has-text-left">Visual Comparison</h3>
+
+        <div class="content has-text-justified">
+          Co-GRPO produces images with finer details and better semantic alignment compared to the Base Model and Naive GRPO. For example, in the prompt <i>"A black and white cat looking out a window over another cat"</i> (second row), Co-GRPO correctly renders the spatial relationship and reflection, whereas baseline models struggle with the complex semantic composition.
+        </div>
+
+        <div class="hero-body">
+          <img src="./static/images/visual-compare.svg" alt="Visual Comparison" style="width: 100%;"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Gallery</h2>
+        
+        <div class="content has-text-justified">
+          <p>
+            Representative high-quality images generated by Co-GRPO.
+          </p>
+        </div>
+
+        <div class="hero-body">
+          <img src="./static/images/gallery.png" alt="Representative Images" style="width: 100%;"/>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Citation -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <!-- TODO:BibTeX -->
+    <pre><code>
+      The BibTeX citation will be updated upon the paper's public release.
+      Please stay tuned!
+</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <!-- <p>
+            The souce code is borrowed from <a
+              href="https://github.com/nerfies/nerfies.github.io">nerfies</a>,
+              we thank the authors for sharing the templates.
+          </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
